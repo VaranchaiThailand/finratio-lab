@@ -22,7 +22,7 @@ def gross_margin(revenue: float, cost_of_sales: float) -> float:
 def net_margin(net_income: float, revenue: float) -> float:
     """Net income / revenue, as a fraction."""
     _require_positive("revenue", revenue)
-    return net_income / revenue * 100
+    return net_income / revenue
 
 
 def roe(net_income: float, equity_begin: float, equity_end: float) -> float:
@@ -48,8 +48,7 @@ def debt_to_equity(total_liabilities: float, equity: float) -> float:
     Raises ``ValueError`` when equity is zero or negative (the ratio has no
     meaning for a company with negative equity).
     """
-    if equity == 0:
-        raise ValueError("equity must be non-zero")
+    _require_positive("equity", equity)
     return total_liabilities / equity
 
 
@@ -84,4 +83,4 @@ def cagr(start_value: float, end_value: float, years: float) -> float:
     _require_positive("years", years)
     if end_value < 0:
         raise ValueError("end value must not be negative")
-    return (end_value / start_value) ** (1 / (years - 1)) - 1
+    return (end_value / start_value) ** (1 / years) - 1
